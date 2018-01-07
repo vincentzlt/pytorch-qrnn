@@ -8,11 +8,12 @@ The QRNN provides similar accuracy to the LSTM but can be betwen 2 and 17 times 
 
 To install, simply run:
 
-`pip install cupy pynvrtc git+https://github.com/salesforce/pytorch-qrnn`
+```shell
+pip install cupy pynvrtc git+https://github.com/salesforce/pytorch-qrnn
+```
 
 If you use this code or our results in your research, please cite:
-
-```
+```latex
 @article{bradbury2016quasi,
   title={{Quasi-Recurrent Neural Networks}},
   author={Bradbury, James and Merity, Stephen and Xiong, Caiming and Socher, Richard},
@@ -57,29 +58,30 @@ print(output.size(), hidden.size())
 
 The full documentation for the `QRNN` is listed below:
 
-```
+```python
 QRNN(input_size, hidden_size, num_layers, dropout=0):
-    Applies a multiple layer Quasi-Recurrent Neural Network (QRNN) to an input sequence.
-
-    Args:
-        input_size: The number of expected features in the input x.
-        hidden_size: The number of features in the hidden state h. If not specified, the input size is used.
-        num_layers: The number of QRNN layers to produce.
-        layers: List of preconstructed QRNN layers to use for the QRNN module (optional).
-        save_prev_x: Whether to store previous inputs for use in future convolutional windows (i.e. for a continuing sequence such as in language modeling). If true, you must call reset to remove cached previous values of x. Default: False.
-        window: Defines the size of the convolutional window (how many previous tokens to look when computing the QRNN values). Supports 1 and 2. Default: 1.
-        zoneout: Whether to apply zoneout (i.e. failing to update elements in the hidden state) to the hidden state updates. Default: 0.
-        output_gate: If True, performs QRNN-fo (applying an output gate to the output). If False, performs QRNN-f. Default: True.
-        use_cuda: If True, uses fast custom CUDA kernel. If False, uses naive for loop. Default: True.
-
-    Inputs: X, hidden
-        - X (seq_len, batch, input_size): tensor containing the features of the input sequence.
-        - hidden (layers, batch, hidden_size): tensor containing the initial hidden state for the QRNN.
-
-    Outputs: output, h_n
-        - output (seq_len, batch, hidden_size): tensor containing the output of the QRNN for each timestep.
-        - h_n (layers, batch, hidden_size): tensor containing the hidden state for t=seq_len
 ```
+Applies a multiple layer Quasi-Recurrent Neural Network (QRNN) to an input sequence.
+
+- Args:
+    - input_size: The number of expected features in the input x.
+    - hidden_size: The number of features in the hidden state h. If not specified, the input size is used.
+    - num_layers: The number of QRNN layers to produce.
+    - layers: List of preconstructed QRNN layers to use for the QRNN module (optional).
+    - save_prev_x: Whether to store previous inputs for use in future convolutional windows (i.e. for a continuing sequence such as in language modeling). If true, you must call reset to remove cached previous values of x. Default: False.
+    - window: Defines the size of the convolutional window (how many previous tokens to look when computing the QRNN values). Supports 1 and 2. Default: 1.
+    - zoneout: Whether to apply zoneout (i.e. failing to update elements in the hidden state) to the hidden state updates. Default: 0.
+    - output_gate: If True, performs QRNN-fo (applying an output gate to the output). If False, performs QRNN-f. Default: True.
+    - use_cuda: If True, uses fast custom CUDA kernel. If False, uses naive for loop. Default: True.
+
+- Inputs: X, hidden
+    - X (seq_len, batch, input_size): tensor containing the features of the input sequence.
+    - hidden (layers, batch, hidden_size): tensor containing the initial hidden state for the QRNN.
+
+- Outputs: output, h_n
+    - output (seq_len, batch, hidden_size): tensor containing the output of the QRNN for each timestep.
+    - h_n (layers, batch, hidden_size): tensor containing the hidden state for t=seq_len
+
 
 The included QRNN layer supports convolutional windows of size 1 or 2 but will be extended in the future to support arbitrary convolutions.
 
